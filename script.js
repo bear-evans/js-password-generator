@@ -37,21 +37,22 @@ var symbolGlyphs = [
   "`", "-", "_", ".",
 ];
 
-// The blank glyph pool
-var glyphPool = [];
-
-// Check the checkbox parameters and fill the pool of potential glyphs
-function fillPool() {
-  }
+var glyphPool = []; // The blank glyph pool
+var passLength = 0; // The password length
 
 // Actually use the pool to generate a password, using a for loop.
 // Outputs a string.
 function generatePassword() {
-
+  // First, check to see if we have any glyphs to use. Exit immediately if not.
+  if (glyphPool.length === 0) {
+    window.alert("Unable to generate password: You must select at least one type of character to include.");
+    return;
+  }
 }
 
 function queryUser() {
-  // The glyph pool begins empty. As the user is queried for 
+  // The glyph pool begins empty. As the user is queried for preferences, the
+  // associated glyphs are added to the pool.
   if (window.confirm("Would you like to use lowercase letters?")) {
     glyphPool = glyphPool.concat(lowerGlyphs);
   }
@@ -65,8 +66,20 @@ function queryUser() {
     glyphPool = glyphPool.concat(symbolGlyphs);
   }
 
-  //console.log(glyphPool);
+  // This variable controls the while loop, breaking once a valid 
+  // password length is set.
+  var isLengthSet = false;
+  
+  while (isLengthSet === false) {
+    passLength = window.prompt("How long should the password be? Choose a whole number between 8 and 128.", 12);
 
+    // checks to see if the password length is within the accepted range,
+    // then converts it to a true integer.
+    if (passLength > 7 && passLength < 129) {
+      passLength = parseInt(passLength, 10);
+      isLengthSet = true;
+    }
+  }
 }
 
 // Write password to the #password input
