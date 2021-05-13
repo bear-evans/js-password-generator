@@ -1,4 +1,7 @@
-// Assignment Code
+//===========================
+// Variables
+//===========================
+
 var generateBtn = document.querySelector("#generate");
 
 // Glyph sets to be added to the pool based on user input
@@ -40,6 +43,10 @@ var symbolGlyphs = [
 var glyphPool = []; // The blank glyph pool
 var passLength = 0; // The password length
 
+//===========================
+// Functions
+//===========================
+
 // Actually use the pool to generate a password, using a for loop.
 // Outputs a string.
 function generatePassword() {
@@ -71,13 +78,18 @@ function queryUser() {
   var isLengthSet = false;
   
   while (isLengthSet === false) {
-    passLength = window.prompt("How long should the password be? Choose a whole number between 8 and 128.", 12);
-
+    passLength = window.prompt("How long should the password be? Choose a whole number between 8 and 128, inclusive.", 12);
     // checks to see if the password length is within the accepted range,
     // then converts it to a true integer.
     if (passLength > 7 && passLength < 129) {
       passLength = parseInt(passLength, 10);
       isLengthSet = true;
+    } else if (isNaN(passLength)) {
+      window.alert("Invalid input. Password length must be an integer.");
+    } else if (passLength < 8) {
+      window.alert("Invalid input. Password length must be 8 or more.");
+    } else if (passLength > 128) {
+      window.alert("Invalid input. Password length must be 128 or less.");
     }
   }
 }
@@ -92,8 +104,8 @@ function writePassword() {
 
 }
 
+//===========================
+// Runtime Code
+//===========================
 
-
-
-// Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
