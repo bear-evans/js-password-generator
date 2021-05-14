@@ -23,7 +23,7 @@ function writePassword() {
     return;
   }
 
-  var password = generatePassword();
+  var password = generatePassword(glyphPool, passLength);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
@@ -66,8 +66,18 @@ function queryUser() {
 
 // Actually use the pool to generate a password, using a for loop.
 // Outputs a string.
-function generatePassword() {
-  // First, check to see if we have any glyphs to use. Exit immediately if not.
+function generatePassword(pool, length) {
+  var pwd;
+  for (var i = 0; i <= length; i++) {
+    glyph = getRandomGlyph(pool);
+    pwd.push(glyph);
+  }
+
+  return pwd;
+}
+
+function getRandomGlyph(pool) {
+
 }
 
 //===========================
