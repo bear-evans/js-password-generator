@@ -31,6 +31,9 @@ function writePassword() {
 }
 
 function queryUser() {
+
+  glyphPool = []; //  reset the glyph pool each time
+
   if (window.confirm("Would you like to use lowercase letters?")) {
     glyphPool = glyphPool.concat(Array.from('abcdefghijklmnopqrstuvwxyz'));
   }
@@ -67,17 +70,19 @@ function queryUser() {
 // Actually use the pool to generate a password, using a for loop.
 // Outputs a string.
 function generatePassword(pool, length) {
-  var pwd;
+  var pwd = [];
   for (var i = 0; i <= length; i++) {
-    glyph = getRandomGlyph(pool);
+    glyph = pool[getRandom(pool.length)];
     pwd.push(glyph);
   }
+
+  pwd = pwd.join('');
 
   return pwd;
 }
 
-function getRandomGlyph(pool) {
-
+function getRandom(max) {
+  return Math.floor(Math.random() * max);
 }
 
 //===========================
