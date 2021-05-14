@@ -12,6 +12,17 @@ var passLength = 0; // The password length
 // Write password to the #password input
 function writePassword() {
   queryUser();
+
+
+  if (glyphPool.length === 0) { // The user didn't specify any glyphs to use.
+    window.alert("Unable to generate password: You must select at least one type of character to include.");
+    return;
+  }
+
+  if (passLength === null) { // The user canceled the input prompt.
+    return;
+  }
+
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
@@ -36,24 +47,19 @@ function queryUser() {
   var isLengthSet = false;
   
   while (isLengthSet === false) {
-    passLength = window.prompt("How long should the password be? Choose a whole number between 8 and 128, inclusive.", 12);
-
-    switch (passLength) {
-      case (passLength < 8) :
-        window.alert("Invalid input. Password length must be 8 or more.");
-        break;
-      case (passLength > 128) :
-        window.alert("Invalid input. Password length must be 128 or less.");
-        break;
-      case (isNaN(passLength)) :
-        window.alert("Invalid input. Password length must be an integer.");
-        break;
-      case (passLength === null) :
-        return null;
-      default:
-        passLength = parseInt(passLength, 10);
-        isLengthSet = true;  
-        break;
+    setLength = window.prompt("How long should the password be? Choose a whole number between 8 and 128, inclusive.", 12);
+    console.log(passLength);
+    if (setLength === null) {
+      return null;
+    } else if(setLength < 8) {
+      window.alert("Invalid input. Password length must be 8 or more.");
+    } else if (setLength > 128) {
+      window.alert("Invalid input. Password length must be 128 or less.");
+    } else if (isNaN(setLength)) {
+      window.alert("Invalid input. Password length must be an integer.");
+    } else {
+      passLength = parseInt(setLength, 10);
+      isLengthSet = true;  
     }
   }
 }
@@ -62,10 +68,6 @@ function queryUser() {
 // Outputs a string.
 function generatePassword() {
   // First, check to see if we have any glyphs to use. Exit immediately if not.
-  if (glyphPool.length === 0) {
-    window.alert("Unable to generate password: You must select at least one type of character to include.");
-    return;
-  }
 }
 
 //===========================
