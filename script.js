@@ -69,7 +69,7 @@ function queryUser() {
 function generatePassword(pool, length) {
   var pwd = [];
 
-  for (var i = 0; i <= length; i++) {
+  for (var i = 0; i < length; i++) {
     glyph = pool[getRandom(pool.length)];
     pwd.push(glyph);
   }
